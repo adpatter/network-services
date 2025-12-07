@@ -6,7 +6,7 @@ Run the tests using the following instructions.
 
 ### Clone the Network-Services repo.
 ```bash
-git clone https://github.com/faranalytics/network-services.git
+git clone https://github.com/adpatter/network-services.git
 ```
 ### Change directory into the root directory.
 ```bash

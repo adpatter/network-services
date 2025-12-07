@@ -56,7 +56,7 @@
 - Improve documentation.
 - Improve and formalize tests.
 - Improve examples.
-- Implement a more authentic tree traversal algorithm.  The effect of calling a remote method using a Service API should - to the fullest extent possible - resemble the effect of calling the same method on a locally referenced object.  For example, with this change it is now possible to traverse into a method of a function object e.g., `Function.prototype.bind`.  Property path restrictions should be used in order to impose runtime restrictions.  **Please see the instructions for imposing runtime property path restrictions in the [README.md](https://github.com/faranalytics/network-services/?tab=readme-ov-file#restrict-api-calls-at-runtime).**
+- Implement a more authentic tree traversal algorithm.  The effect of calling a remote method using a Service API should - to the fullest extent possible - resemble the effect of calling the same method on a locally referenced object.  For example, with this change it is now possible to traverse into a method of a function object e.g., `Function.prototype.bind`.  Property path restrictions should be used in order to impose runtime restrictions.  **Please see the instructions for imposing runtime property path restrictions in the [README.md](https://github.com/adpatter/network-services/?tab=readme-ov-file#restrict-api-calls-at-runtime).**
 ### Fixed
 - Fix a bug in tree traversal that can errantly invoke a function along the property path when property path restrictions are ***not*** imposed.
 
