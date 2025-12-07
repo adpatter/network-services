@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faranalytics/network-services.git"
+    "url": "git+https://github.com/adpatter/network-services.git"
   },
   "author": "FAR",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/faranalytics/network-services/issues"
+    "url": "https://github.com/adpatter/network-services/issues"
   },
-  "homepage": "https://github.com/faranalytics/network-services#readme",
+  "homepage": "https://github.com/adpatter/network-services#readme",
   "engines": {
     "npm": ">=10.2.3",
     "node": ">=18.20.4"
