@@ -257,7 +257,7 @@ type CallMessageList = [
   0, // The message type; 0 = Call.
   string, // The call identifier.
   Array<string>, // The elements of the property path to the called method.
-  ...Array<unknown> // The arguments to be passed to the function.
+  ...Array<unknown>, // The arguments to be passed to the function.
 ];
 ```
 
@@ -269,7 +269,7 @@ A `ResultMessageList` consists of a numeric message type, the call identifier, a
 type ResultMessageList = [
   1 | 2, // The message type; 1 = Error, 2 = Result.
   string, // The call identifier.
-  unknown // The return value or Error.
+  unknown, // The return value or Error.
 ];
 ```
 
