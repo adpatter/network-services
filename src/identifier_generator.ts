@@ -1,13 +1,13 @@
 export interface IdentifierGenerator {
-    getIdentifier(): string;
+  getIdentifier(): string;
 }
 
 export class NumericIdentifierGenerator implements IdentifierGenerator {
-    public id: number;
-    constructor() {
-        this.id = 0;
-    }
-    public getIdentifier(): string {
-        return (++this.id).toString();
-    }
+  public id: number;
+  constructor() {
+    this.id = 0;
+  }
+  public getIdentifier(): string {
+    return (++this.id).toString();
+  }
 }
