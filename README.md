@@ -63,7 +63,7 @@ A Service API is a type-safe representation of your remote Service App. You can 
 
 A Service Pool is an optional utility feature that facilitates scaling Service Apps using Worker threads. The Service Pool implementation is just one of many [scaling](#scaling) models that could be used in order to scale a _Network-Services_ app. You can create a Service Pool using the `network-services.createServicePool` helper function. Because a pool of Service Apps may be shared by many Service API clients (i.e., a many-to-many relationship), the Service Pool implementation is limited to request-response messaging; a request (i.e., a method call) is made using a Service API and the response (i.e., the return value) from the Service App is returned to the caller. However, a more sophisticated implementation could support coordinated bi-directional communication between many Service API clients and a pool of Service Apps.
 
-Please see the [Scalable "Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/scalable_hello_world) example for a working implementation using a Service Pool.
+Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working implementation using a Service Pool.
 
 ## Usage
 
@@ -115,31 +115,31 @@ socket.on("ready", async () => {
 });
 ```
 
-Please see the ["Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/hello_world) example for a working implementation. For a scalable implementation, please see the [Scalable "Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/scalable_hello_world) example.
+Please see the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example for a working implementation. For a scalable implementation, please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example.
 
-> In the ["Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/hello_world) example communication is uni-directional (i.e., it supports request-response messaging). However, _Network-Services_ also supports bi-directional communication over the same socket. Please see the [Bi-directional Type-safe APIs](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) example for how to implement bi-directional communication.
+> In the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example communication is uni-directional (i.e., it supports request-response messaging). However, _Network-Services_ also supports bi-directional communication over the same socket. Please see the [Bi-directional Type-safe APIs](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) example for how to implement bi-directional communication.
 
 ## Examples
 
 ### _An instance of "Hello, World!"_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [Usage](#usage) section above or the ["Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/hello_world) example for a working implementation.
+Please see the [Usage](#usage) section above or the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example for a working implementation.
 
 ### _Use Network-Services to create bi-directional type-safe APIs_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [Bi-directional Type-Safe APIs](https://github.com/adpatter/network-services/tree/main/examples/bi-directional_type_safe_apis) example for a working implementation.
+Please see the [Bi-directional Type-Safe APIs](https://github.com/far-analytics/network-services/tree/main/examples/bi-directional_type_safe_apis) example for a working implementation.
 
 ### _Use Network-Services with TLS encryption and client certificate authentication_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [TLS Encryption and Client Authentication](https://github.com/adpatter/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
+Please see the [TLS Encryption and Client Authentication](https://github.com/far-analytics/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
 
 ### _Use Network-Services to create an API with a nested method_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [Nested Method](https://github.com/adpatter/network-services/tree/main/examples/nested_method) example for a working implementation.
+Please see the [Nested Method](https://github.com/far-analytics/network-services/tree/main/examples/nested_method) example for a working implementation.
 
 ### _Use Network-Services to scale a "Hello, World!" greeter Service asing a Service Pool_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [Scalable "Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/scalable_hello_world) example for a working implementation.
+Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working implementation.
 
 ## API
 
@@ -159,7 +159,7 @@ _public_ **service.createServiceApp\<T\>(app, options)**
 
 - `app` `<object>` An instance of your application.
 - `options` `<ServiceAppOptions<T>>`
-  - `paths` `<Array<PropPath<Async<T>>>>` An `Array` of _property paths_ (i.e., dot-path `string`s). _If defined_, only property paths in this list may be called on the Service App. Each element of the array is a `PropPath` and a `PropPath` is simply a dot-path `string` representation of a property path. Please see the [Nested Method](https://github.com/adpatter/network-services/tree/main/examples/nested_method) example for a working implementation. **Default:** `undefined`.
+  - `paths` `<Array<PropPath<Async<T>>>>` An `Array` of _property paths_ (i.e., dot-path `string`s). _If defined_, only property paths in this list may be called on the Service App. Each element of the array is a `PropPath` and a `PropPath` is simply a dot-path `string` representation of a property path. Please see the [Nested Method](https://github.com/far-analytics/network-services/tree/main/examples/nested_method) example for a working implementation. **Default:** `undefined`.
 
 Returns: `<ServiceApp<T>>`
 
@@ -220,7 +220,7 @@ Please see the [Bi-directional Type-safe APIs](#use-network-services-to-create-b
 
 _Network-Services_ is modeled around communication over `net.Sockets`; however, it can be used in order to communicate over any resource that implements the `stream.Duplex` interface. This means that if you can model your bi-directional resource as a `stream.Duplex`, it should work with _Network-Services_. The `createService` helper function takes a `stream.Duplex` as its first argument. Just implement a [stream.Duplex](https://nodejs.org/api/stream.html#implementing-a-duplex-stream) around your resource and pass it into the `createService` helper function.
 
-The [_Scalability_](https://github.com/adpatter/scalability) package, for example, uses _Network-Services_ in order to scale an arbitrary Service App using Worker threads.
+The [_Scalability_](https://github.com/far-analytics/scalability) package, for example, uses _Network-Services_ in order to scale an arbitrary Service App using Worker threads.
 
 ## Scaling
 
@@ -228,9 +228,9 @@ _Network-Services_ is architected in order to support a variety of scaling model
 
 For example, a Service Pool implementation where there is a one-to-one relationship between Service APIs and Service Apps would facilitate bi-directional communication. An alternative approach may be to run multiple servers in separate processes or Worker threads, connect to each of them, and round-robin through the respective Service APIs. Likewise, a container orchestration framework could be used in order to easily scale a _Network-Services_ app.
 
-Complexities arise when muxing many-to-many relationships; hence, please see the simple and capable [`ServicePool`](https://github.com/adpatter/network-services/blob/main/src/service_pool.ts) implementation for relevant considerations if you wish to draft a custom implementation.
+Complexities arise when muxing many-to-many relationships; hence, please see the simple and capable [`ServicePool`](https://github.com/far-analytics/network-services/blob/main/src/service_pool.ts) implementation for relevant considerations if you wish to draft a custom implementation.
 
-Please see the [Scalable "Hello, World!"](https://github.com/adpatter/network-services/tree/main/examples/scalable_hello_world) example for a working scalable Service implementation using a Service Pool.
+Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working scalable Service implementation using a Service Pool.
 
 ## Message protocol
 
@@ -315,11 +315,11 @@ Security is a complex and multifaceted endeavor.
 
 #### Use TLS encryption.
 
-TLS Encryption may be implemented using native Node.js [TLS Encryption](https://nodejs.org/docs/latest-v20.x/api/tls.html). Please see the [TLS Encryption and Client Authentication](https://github.com/adpatter/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
+TLS Encryption may be implemented using native Node.js [TLS Encryption](https://nodejs.org/docs/latest-v20.x/api/tls.html). Please see the [TLS Encryption and Client Authentication](https://github.com/far-analytics/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
 
 #### Use TLS client certificate authentication.
 
-TLS Client Certificate Authentication may be implemented using native Node.js [TLS Client Authentication](https://nodejs.org/docs/latest-v20.x/api/tls.html). Please see the [TLS Encryption and Client Authentication](https://github.com/adpatter/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
+TLS Client Certificate Authentication may be implemented using native Node.js [TLS Client Authentication](https://nodejs.org/docs/latest-v20.x/api/tls.html). Please see the [TLS Encryption and Client Authentication](https://github.com/far-analytics/network-services/tree/main/examples/tls_encryption_and_client_auth) example for a working implementation.
 
 #### Restrict API calls at runtime.
 
@@ -363,6 +363,6 @@ npm test
 
 ## Support
 
-If you have a feature request or run into any issues, feel free to submit an [issue](https://github.com/adpatter/network-services/issues) or start a [discussion](https://github.com/adpatter/network-services/discussions). You’re also welcome to reach out directly to one of the authors.
+If you have a feature request or run into any issues, feel free to submit an [issue](https://github.com/far-analytics/network-services/issues) or start a [discussion](https://github.com/far-analytics/network-services/discussions). You’re also welcome to reach out directly to one of the authors.
 
 - [Adam Patterson](https://github.com/adpatter)

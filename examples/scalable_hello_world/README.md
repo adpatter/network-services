@@ -98,7 +98,7 @@ service.createServiceApp(greeter); // Create a Service App.
 #### Clone the Network-Services repository.
 
 ```bash
-git clone https://github.com/adpatter/network-services.git
+git clone https://github.com/far-analytics/network-services.git
 ```
 
 #### Change directory into the relevant example directory.
