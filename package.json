@@ -3,15 +3,32 @@
   "version": "1.1.12",
   "description": "",
   "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "workspaces": [
+    "tests/network-services_test"
+  ],
   "scripts": {
     "clean": "rm -rf ./dist/*",
     "build": "tsc --build .",
-    "clean:build": "npm run clean && npm run build",
     "watch": "tsc --watch",
-    "lint": "npx eslint .",
-    "format": "npx prettier --write .",
+    "clean:build": "npm run clean && npm run build",
+    "format": "prettier --write .",
     "format:lint": "npm run format && npm run lint",
-    "test": "npm run clean:build && npm install --prefix ./tests/test && npm run clean:build --prefix ./tests/test && npm start --prefix ./tests/test"
+    "lint": "eslint src",
+    "lint:all": "eslint .",
+    "check": "npm run lint:all && npm test",
+    "prepack": "npm run clean:build",
+    "test": "npm run clean:build && npm run test --workspace ./tests/network-services_test"
   },
   "repository": {
     "type": "git",
