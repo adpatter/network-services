@@ -1,6 +1,6 @@
 {
   "name": "network-services",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "A type-safe asynchronous RPC Service facility for connecting your app to the network.",
   "main": "./dist/index.js",
   "exports": {
