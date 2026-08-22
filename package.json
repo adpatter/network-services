@@ -15,7 +15,7 @@
     "LICENSE"
   ],
   "workspaces": [
-    "tests/network-services_test"
+    "tests/*"
   ],
   "scripts": {
     "clean": "rm -rf ./dist/*",
@@ -28,7 +28,7 @@
     "lint:all": "eslint .",
     "check": "npm run lint:all && npm test",
     "prepack": "npm run clean:build",
-    "test": "npm run clean:build && npm run test --workspace ./tests/network-services_test"
+    "test": "npm run clean:build && npm run test --workspaces"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/far-analytics/network-services#readme",
   "engines": {
-    "npm": ">=10.2.3",
     "node": ">=18.20.4"
   },
   "devDependencies": {
