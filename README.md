@@ -1,6 +1,6 @@
 # _Network⬄Services_
 
-A type-safe asynchronous RPC facility for connecting services over Node.js `stream.Duplex` streams.
+A type-safe asynchronous bi-directional RPC facility for connecting services over Node.js duplex streams.
 
 ## Introduction
 
