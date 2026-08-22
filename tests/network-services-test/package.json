@@ -1,5 +1,5 @@
 {
-  "name": "network-services_test",
+  "name": "network-services-test",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
