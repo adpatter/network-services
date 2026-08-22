@@ -23,7 +23,7 @@ export class BufferMux extends Mux {
     this.stream.on("data", this.demux.bind(this));
   }
 
-  public mux(message: CallMessage | ResultMessage) {
+  public mux(message: CallMessage | ResultMessage): void {
     try {
       if (this.egressQueue) {
         const data = this.serializeMessage(message);
@@ -49,7 +49,7 @@ export class BufferMux extends Mux {
     }
   }
 
-  protected writeBufferToStream() {
+  protected writeBufferToStream(): void {
     try {
       if (this.egressQueue?.length != 0) {
         if (!this.stream.write(this.egressQueue)) {
@@ -62,7 +62,7 @@ export class BufferMux extends Mux {
     }
   }
 
-  public demux(chunk: Buffer | string) {
+  public demux(chunk: Buffer | string): void {
     try {
       if (this.ingressQueue && chunk.length !== 0) {
         if (!Buffer.isBuffer(chunk)) {
@@ -86,7 +86,7 @@ export class BufferMux extends Mux {
 
           if (message.type == 1 || message.type == 2) {
             this.emit("result", message);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           } else if (message.type === 0) {
             this.emit("call", message);
           } else {
@@ -122,7 +122,7 @@ export class BufferMux extends Mux {
     const type = message[0];
     if (type == 0) {
       return new CallMessage({ type, id: message[1], props: message[2], args: message[3] });
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     } else if (type == 1 || type == 2) {
       return new ResultMessage({ type, id: message[1], data: message[2] });
     } else {

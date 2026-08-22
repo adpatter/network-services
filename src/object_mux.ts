@@ -19,7 +19,7 @@ export class ObjectMux extends Mux {
     this.stream.on("data", this.demux.bind(this));
   }
 
-  public mux(message: CallMessage | ResultMessage) {
+  public mux(message: CallMessage | ResultMessage): void {
     try {
       if (this.egressQueue) {
         this.egressQueue.push(message);
@@ -40,7 +40,7 @@ export class ObjectMux extends Mux {
     }
   }
 
-  protected writeObjectToStream() {
+  protected writeObjectToStream(): void {
     try {
       while (this.egressQueue?.length) {
         if (!this.stream.write(this.egressQueue.shift())) {
@@ -53,7 +53,7 @@ export class ObjectMux extends Mux {
     }
   }
 
-  public demux(message: CallMessage | ResultMessage) {
+  public demux(message: CallMessage | ResultMessage): void {
     try {
       if (message.type == 1 || message.type == 2) {
         this.emit("result", message);

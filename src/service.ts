@@ -58,7 +58,7 @@ export class Service {
           }, handler);
         },
         // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-        set(target: any, property: string, value: any, receiver: any) {
+        set(target: any, property: string, value: any, receiver: any): boolean {
           props.push(property);
           throw new NotImplementedError(
             `The 'set' property is not implemented for the property path ${props.join(".")}.`
@@ -81,7 +81,7 @@ export class Service {
             }, handler);
           },
           // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-          set(target: any, property: string, value: any, receiver: any) {
+          set(target: any, property: string, value: any, receiver: any): boolean {
             props.push(property);
             throw new NotImplementedError(
               `The 'set' property is not implemented for the property path ${props.join(".")}.`
