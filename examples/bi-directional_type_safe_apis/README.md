@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this example you will use Network-Services in order to create two Service Apps connected by a Socket. Communication between the two Service Apps will be bi-directional. Their APIs will be type safe and support code completion, parameter types, and return types.
+In this example you will use Network-Services in order to create two Service Apps connected by a Socket. Communication between the two Service Apps will be bi-directional. Their APIs will be type-safe and support code completion, parameter types, and return types.
 
 ## Implement the example
 
@@ -40,7 +40,7 @@ class DataStore implements IDataStore {
     if (this.data.length < this.storageLimit) {
       this.data = this.data.concat(args);
     } else {
-      await this.provider.stop(); // The type safe `provider` object type supports code completion.
+      await this.provider.stop(); // The type-safe `provider` object type supports code completion.
     }
   }
 
@@ -91,14 +91,14 @@ class DataProvider implements IDataProvider {
   async start() {
     let n = 0;
     while (this.continue) {
-      await this.store.addData(n++); // The type safe `store` object type supports code completion.
+      await this.store.addData(n++); // The type-safe `store` object type supports code completion.
     }
   }
 
   async stop() {
     if (this.continue) {
       this.continue = false;
-      const data = await this.store.getData(); // The type safe `store` object type supports code completion.
+      const data = await this.store.getData(); // The type-safe `store` object type supports code completion.
       console.log(data);
     }
   }

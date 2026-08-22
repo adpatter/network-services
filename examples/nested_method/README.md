@@ -109,7 +109,7 @@ npm start
 
 ##### Output
 
-The `greeter.secret.tell` method returns `null` because `Infinity` is serialized to `null` in accordance with `JSON.stringify's` [serialization rules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description).
+The `greeter.secret.tell` method returns `null` because `Infinity` is serialized to `null` in accordance with the [serialization rules of `JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description).
 
 ```bash
 Hello, happy world!
