@@ -1,16 +1,16 @@
 # _Network⬄Services_
 
-A type-safe asynchronous bi-directional RPC facility for connecting services over Node.js duplex streams.
+A type-safe asynchronous bi-directional RPC facility for connecting services over Node.js `stream.Duplex` streams.
 
 ## Introduction
 
 _Network-Services_ provides a simple and intuitive toolkit that makes connecting services over the network, or any compatible `stream.Duplex`, _easy_. You can use _Network-Services_ to expose an application as a [Service App](#service-app) and interact with it through a type-safe [Service API](#service-api).
 
-A _Network-Services_ app can be explained with a complete and simple example. In the uni-directional "Hello, world!" example shown below, a Greeter Service App is hosted on 127.0.0.1:3000 and its `greeter.greet` method is called over a `net.Socket` using a Service API of type `Greeter`. The same API also supports [bi-directional communication](#use-network-services-to-create-bi-directional-type-safe-apis-typescript), where both connected services expose an API and an app.
+A _Network-Services_ app can be explained with a complete and simple example. In the uni-directional "Hello, world!" example shown below, a Greeter Service App is hosted on 127.0.0.1:3000 and its `greeter.greet` method is called over a `net.Socket` using a Service API of type `Greeter`.
 
 ![A "Hello, World!" App](./hello_world.png)
 
-In the example above, a `net.Socket` connects the services; however, any compatible `stream.Duplex` will work.
+In the example above, a `net.Socket` connects the services; however, any compatible `stream.Duplex` will work. The same API also supports [bi-directional communication](#use-network-services-to-create-bi-directional-type-safe-apis-typescript), where both connected services expose an API and an app.
 
 ### Features
 
@@ -327,7 +327,7 @@ Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 #### Install the dependencies.
 
 ```bash
-npm install && npm update
+npm install
 ```
 
 #### Run the test script.
