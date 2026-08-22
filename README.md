@@ -1,21 +1,23 @@
 # _Network⬄Services_
 
-A type-safe asynchronous RPC Service facility for connecting your app to the network.
+A type-safe asynchronous RPC facility for connecting services over Node.js `stream.Duplex` streams.
 
 ## Introduction
 
-_Network-Services_ provides a simple and intuitive toolkit that makes connecting your app to the network _easy_. You can use _Network-Services_ to transform your application into a network connected [Service App](#service-app). You can connect to your Service App from the same process or another process and call methods on it using a type-safe [Service API](#service-api).
+_Network-Services_ provides a simple and intuitive toolkit that makes connecting services over the network, or any compatible `stream.Duplex`, _easy_. You can use _Network-Services_ to expose an application as a [Service App](#service-app) and interact with it through a type-safe [Service API](#service-api).
 
-A _Network-Services_ app can be explained with a complete and simple example. In the "Hello, world!" example shown below, a Greeter Service App is hosted on 127.0.0.1:3000 and its `greeter.greet` method is called over a `net.Socket` using a Service API of type `Greeter`.
+A _Network-Services_ app can be explained with a complete and simple example. In the uni-directional "Hello, world!" example shown below, a Greeter Service App is hosted on 127.0.0.1:3000 and its `greeter.greet` method is called over a `net.Socket` using a Service API of type `Greeter`. The same API also supports [bi-directional communication](#use-network-services-to-create-bi-directional-type-safe-apis-typescript), where both connected services expose an API and an app.
 
 ![A "Hello, World!" App](./hello_world.png)
+
+In the example above, a `net.Socket` connects the services; however, any compatible `stream.Duplex` will work.
 
 ### Features
 
 - Type-safe APIs: _code completion_, _parameter types_, and _return types_.
 - Return values _and_ Errors are [marshalled](#marshalling) back to the caller.
 - Infinite [property nesting](#use-network-services-to-create-an-api-with-a-nested-method-typescript); you can use a Service API to call _nested_ properties on a Service App at any depth.
-- [Bi-directional](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) asynchronous RPC over TCP.
+- [Bi-directional](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) asynchronous RPC over any compatible Node.js `stream.Duplex`.
 - [Security](#security) can be implemented using the native Node [TLS module](https://nodejs.org/docs/latest-v20.x/api/tls.html) (i.e., TLS and Client Certificate Authentication).
 - A configurable [message protocol](#message-protocol). You can marshal your messages however you choose (e.g., JSON, binary, etc.), or use the default _minimalist_ JSON message protocol.
 - [Extend](#extend-network-services) _Network-Services_ using the native `stream.Duplex` interface.
