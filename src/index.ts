@@ -15,7 +15,7 @@ import { IdentifierGenerator, NumericIdentifierGenerator } from "./identifier_ge
 import { Mux, MuxOptions, MuxConstructor } from "./mux";
 import { BufferMux } from "./buffer_mux";
 import { ObjectMux } from "./object_mux";
-import { createPortStream } from "./port_stream";
+import { createPortStream, PortStream } from "./port_stream";
 
 export {
   createService,
@@ -42,4 +42,5 @@ export {
   NotImplementedError,
   PropertyPathError,
   StreamClosedError,
+  PortStream
 };
