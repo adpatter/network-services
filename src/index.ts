@@ -16,16 +16,12 @@ import { Mux, MuxOptions, MuxConstructor } from "./mux";
 import { BufferMux } from "./buffer_mux";
 import { ObjectMux } from "./object_mux";
 import { createPortStream } from "./port_stream";
-import { createServicePool, ServicePool, ServicePoolOptions } from "./service_pool";
 
 export {
   createService,
   createPortStream,
-  createServicePool,
   Service,
   ServiceOptions,
-  ServicePool,
-  ServicePoolOptions,
   ServiceApp,
   ServiceAppOptions,
   ServiceAPI,
