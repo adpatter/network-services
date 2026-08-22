@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - Unreleased
+
+### Removed
+
+- Remove `ServicePool` and `createServicePool`; scaling is left to the application.
+
 ## [1.1.10] - 2025-01-18
 
 ### Changed
