@@ -13,12 +13,12 @@
   "author": "FAR",
   "license": "MIT",
   "dependencies": {
-    "network-services": "^1.1.12"
+    "network-services": "^1.1.13"
   },
   "type": "module",
   "engines": {
     "npm": ">=10.2.3",
-    "node": ">=18.19.0"
+    "node": ">=18.20.4"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
