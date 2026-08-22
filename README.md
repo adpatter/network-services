@@ -4,7 +4,7 @@ A type-safe asynchronous RPC Service facility for connecting your app to the net
 
 ## Introduction
 
-_Network-Services_ provides a simple and intuitive toolkit that makes connecting your app to the network _easy_. You can use _Network-Services_ to transform your application into a network connected [Service App](#service-app). You can connect to your Service App from the same process or another process and call methods on it using a type-safe [Service API](#service-api). You can optionally use a [Service Pool](#service-pool) to scale your Service App.
+_Network-Services_ provides a simple and intuitive toolkit that makes connecting your app to the network _easy_. You can use _Network-Services_ to transform your application into a network connected [Service App](#service-app). You can connect to your Service App from the same process or another process and call methods on it using a type-safe [Service API](#service-api).
 
 A _Network-Services_ app can be explained with a complete and simple example. In the "Hello, world!" example shown below, a Greeter Service App is hosted on 127.0.0.1:3000 and its `greeter.greet` method is called over a `net.Socket` using a Service API of type `Greeter`.
 
@@ -13,7 +13,6 @@ A _Network-Services_ app can be explained with a complete and simple example. In
 ### Features
 
 - Type-safe APIs: _code completion_, _parameter types_, and _return types_.
-- Easily scale your Service App using a [Service Pool](#scaling).
 - Return values _and_ Errors are [marshalled](#marshalling) back to the caller.
 - Infinite [property nesting](#use-network-services-to-create-an-api-with-a-nested-method-typescript); you can use a Service API to call _nested_ properties on a Service App at any depth.
 - [Bi-directional](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) asynchronous RPC over TCP.
@@ -45,7 +44,7 @@ npm install network-services
 
 ## Concepts
 
-_Network-Services_ features an intuitive API that can be most easily understood by looking at an [example](#examples) or common [usage](#usage). There are four important concepts that comprise the API, a [Service](#service), a [Service App](#service-app), a [Service API](#service-api), and a utility [Service Pool](#service-pool) implementation.
+_Network-Services_ features an intuitive API that can be most easily understood by looking at an [example](#examples) or common [usage](#usage). There are three important concepts that comprise the API: a [Service](#service), a [Service App](#service-app), and a [Service API](#service-api).
 
 ### Service
 
@@ -58,12 +57,6 @@ A Service App is a user defined object instance (i.e., an instance of your appli
 ### Service API
 
 A Service API is a type-safe representation of your remote Service App. You can create a Service API using the `service.createServiceAPI<T>` helper function. `service.createServiceAPI<T>` will return a Proxy that is type cast in order to make the methods that comprise `<T>` suitable for making asynchronous function calls. You can call methods on the Service API object much how you would call methods on an instance of `<T>` itself.
-
-### Service Pool
-
-A Service Pool is an optional utility feature that facilitates scaling Service Apps using Worker threads. The Service Pool implementation is just one of many [scaling](#scaling) models that could be used in order to scale a _Network-Services_ app. You can create a Service Pool using the `network-services.createServicePool` helper function. Because a pool of Service Apps may be shared by many Service API clients (i.e., a many-to-many relationship), the Service Pool implementation is limited to request-response messaging; a request (i.e., a method call) is made using a Service API and the response (i.e., the return value) from the Service App is returned to the caller. However, a more sophisticated implementation could support coordinated bi-directional communication between many Service API clients and a pool of Service Apps.
-
-Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working implementation using a Service Pool.
 
 ## Usage
 
@@ -115,7 +108,7 @@ socket.on("ready", async () => {
 });
 ```
 
-Please see the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example for a working implementation. For a scalable implementation, please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example.
+Please see the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example for a working implementation. For scaling, run multiple Service Apps and connect clients to them using your preferred process, worker, or container orchestration model.
 
 > In the ["Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/hello_world) example communication is uni-directional (i.e., it supports request-response messaging). However, _Network-Services_ also supports bi-directional communication over the same socket. Please see the [Bi-directional Type-safe APIs](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) example for how to implement bi-directional communication.
 
@@ -136,10 +129,6 @@ Please see the [TLS Encryption and Client Authentication](https://github.com/far
 ### _Use Network-Services to create an API with a nested method_ <sup><sup>\</TypeScript\></sup></sup>
 
 Please see the [Nested Method](https://github.com/far-analytics/network-services/tree/main/examples/nested_method) example for a working implementation.
-
-### _Use Network-Services to scale a "Hello, World!" greeter Service asing a Service Pool_ <sup><sup>\</TypeScript\></sup></sup>
-
-Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working implementation.
 
 ## API
 
@@ -187,18 +176,6 @@ The following Errors may arise when a Service API method is called.
 
 > **NB** The Service API and type safety is not enforced at runtime. Please see the `paths` property of the `ServiceAppOptions<T>` object for runtime checks.
 
-### The ServicePool class
-
-#### network-services.createServicePool(options)
-
-- `options` `<ServicePoolOptions>`
-  - `workerCount` `<number>` Optional argument that specifies the number of worker threads to be spawned.
-  - `workerURL` `<string | URL>` The URL or path to the `.js` module file. This is the module that will be scaled according to the value specified for `workerCount`.
-  - `restartWorkerOnError` `<boolean>` A boolean setting specifying if Workers should be restarted on `error`. **Default**: `false`
-  - `workerOptions` `<worker_threads.WorkerOptions>` Optional `worker_threads.WorkerOptions` to be passed to each Worker instance.
-
-Returns: `<ServicePool>`
-
 ### The PortStream class
 
 #### network-services.createPortStream(port, options)
@@ -208,7 +185,7 @@ Returns: `<ServicePool>`
 
 Returns: `<PortStream>`
 
-A `PortStream` defaults to wrapping the `parentPort` of the Worker thread into a `stream.Duplex`. Hence, a `PortStream` _is a_ `stream.Duplex`, so it can be passed to the _Network-Services_ `createService` helper function. This is the stream adapter that is used in the Worker modules that comprise a Service Pool.
+A `PortStream` defaults to wrapping the `parentPort` of the Worker thread into a `stream.Duplex`. Hence, a `PortStream` _is a_ `stream.Duplex`, so it can be passed to the _Network-Services_ `createService` helper function.
 
 ## Type safety
 
@@ -224,13 +201,9 @@ The [_Scalability_](https://github.com/far-analytics/scalability) package, for e
 
 ## Scaling
 
-_Network-Services_ is architected in order to support a variety of scaling models. The model implemented by the utility [Service Pool](#service-pool) facility, which supports request-response messaging, is just one of many possible approaches to scaling an application built on _Network-Services_.
+_Network-Services_ is architected in order to support a variety of scaling models.
 
-For example, a Service Pool implementation where there is a one-to-one relationship between Service APIs and Service Apps would facilitate bi-directional communication. An alternative approach may be to run multiple servers in separate processes or Worker threads, connect to each of them, and round-robin through the respective Service APIs. Likewise, a container orchestration framework could be used in order to easily scale a _Network-Services_ app.
-
-Complexities arise when muxing many-to-many relationships; hence, please see the simple and capable [`ServicePool`](https://github.com/far-analytics/network-services/blob/main/src/service_pool.ts) implementation for relevant considerations if you wish to draft a custom implementation.
-
-Please see the [Scalable "Hello, World!"](https://github.com/far-analytics/network-services/tree/main/examples/scalable_hello_world) example for a working scalable Service implementation using a Service Pool.
+An alternative approach may be to run multiple servers in separate processes or Worker threads, connect to each of them, and round-robin through the respective Service APIs. Likewise, a container orchestration framework could be used in order to scale a _Network-Services_ app.
 
 ## Message protocol
 
