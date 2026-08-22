@@ -1,5 +1,6 @@
  
 import * as net from "node:net";
+import type * as threads from "node:worker_threads";
 import { createService, createServicePool } from "network-services";
 import { Greeter } from "./service.js"; // Import the `Greeter` type from the scaled module.
 
@@ -47,6 +48,7 @@ for (let i = 0; i < 100; i++) {
         const greeter = service.createServiceAPI<Greeter>();
         // console.time(`test ${i}`);
         const greeting = greeter.greet("happy");
+        void greeting.finally(() => socket.end());
         r(greeting);
         // console.log(greeting);
         // console.timeEnd(`test ${i}`);
@@ -60,3 +62,19 @@ const greetings = await Promise.all(results);
 console.log(greetings);
 
 console.timeEnd(`test`);
+
+await new Promise<void>((resolve, reject) => {
+  server.close((err?: Error) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve();
+    }
+  });
+});
+
+await Promise.all(
+  [...servicePool.workers].map((worker: threads.Worker) => {
+    return worker.terminate();
+  })
+);
