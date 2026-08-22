@@ -176,13 +176,13 @@ The following Errors may arise when a Service API method is called.
 - If a property is invoked that is not a function on the remote Service App, the `Promise` will reject with `TypeError` as its reason.
 - If the call fails to resolve or reject prior to the `timeout` specified in `ServiceAPIOptions`, the `Promise` will reject with `CallTimeoutError` as its reason.
 
-> **NB** The Service API and type safety is not enforced at runtime. Please see the `paths` property of the `ServiceAppOptions<T>` object for runtime checks.
+> **NB** The Service API and type safety are not enforced at runtime. Please see the `paths` property of the `ServiceAppOptions<T>` object for runtime checks.
 
-### The PortStream class
+### The createPortStream helper
 
 #### network-services.createPortStream(port, options)
 
-- `port` `<worker_threads.MessagePort | worker_threads.Worker>` An optional `MessagePort` to be wrapped by a `stream.Duplex`. **Default**: `worker_threads.parentPort`
+- `port` `<worker_threads.MessagePort | worker_threads.Worker>` An optional `MessagePort` or `Worker` to be wrapped by a `stream.Duplex`. **Default**: `worker_threads.parentPort`
 - `options` `<internal.DuplexOptions>` An optional `internal.DuplexOptions` object to be passed to the `PortStream` parent class.
 
 Returns: `<PortStream>`
@@ -191,13 +191,13 @@ A `PortStream` defaults to wrapping the `parentPort` of the Worker thread into a
 
 ## Type safety
 
-_Network-Services_ provides a facility for building a type-safe network API. The type-safe API facility is realized through use of JavaScript's Proxy object and TypeScript's type variables. A Proxy interface is created by passing your app's public interface to the type parameter of the `service.createServiceAPI<T>` helper function. The type-safe Proxy interface facilitates _code completion_, _parameter types_, and _return types_; it helps safeguard the integrity of your API.
+_Network-Services_ provides a facility for building a type-safe RPC API. The type-safe API facility is realized through use of JavaScript's Proxy object and TypeScript's type variables. A Proxy interface is created by passing your app's public interface to the type parameter of the `service.createServiceAPI<T>` helper function. The type-safe Proxy interface facilitates _code completion_, _parameter types_, and _return types_; it helps safeguard the integrity of your API.
 
 Please see the [Bi-directional Type-safe APIs](#use-network-services-to-create-bi-directional-type-safe-apis-typescript) example for a working implementation.
 
 ## Extend _Network-Services_
 
-_Network-Services_ is modeled around communication over `net.Sockets`; however, it can be used in order to communicate over any resource that implements the `stream.Duplex` interface. This means that if you can model your bi-directional resource as a `stream.Duplex`, it should work with _Network-Services_. The `createService` helper function takes a `stream.Duplex` as its first argument. Just implement a [stream.Duplex](https://nodejs.org/api/stream.html#implementing-a-duplex-stream) around your resource and pass it into the `createService` helper function.
+_Network-Services_ communicates over Node.js `stream.Duplex` streams. A `net.Socket` is one example, but any compatible duplex stream can be used. This means that if you can model your bi-directional resource as a `stream.Duplex`, it should work with _Network-Services_. The `createService` helper function takes a `stream.Duplex` as its first argument. Just implement a [stream.Duplex](https://nodejs.org/api/stream.html#implementing-a-duplex-stream) around your resource and pass it into the `createService` helper function.
 
 The [_Scalability_](https://github.com/far-analytics/scalability) package, for example, uses _Network-Services_ in order to scale an arbitrary Service App using Worker threads.
 
@@ -209,7 +209,7 @@ An alternative approach may be to run multiple servers in separate processes or 
 
 ## Message protocol
 
-_Network-Services_ provides a default _minimalist_ JSON message protocol. However, you can marshal your messages however you choose by extending the `BufferMux` class and implementing the`serializeMessage` and `deserializeMessage` methods. Simply pass your custom `Mux` implementation in the `ServiceOptions` when you create your Service. Please see the `muxClass` parameter in `ServiceOptions` of the [createService](#network-servicescreateservicestream-options) helper function.
+_Network-Services_ provides a default _minimalist_ JSON message protocol. However, you can marshal your messages however you choose by extending the `BufferMux` class and implementing the `serializeMessage` and `deserializeMessage` methods. Simply pass your custom `Mux` implementation in the `ServiceOptions` when you create your Service. Please see the `muxClass` parameter in `ServiceOptions` of the [createService](#network-servicescreateservicestream-options) helper function.
 
 ### Default JSON message protocol
 
