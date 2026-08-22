@@ -1,7 +1,7 @@
 {
   "name": "network-services",
   "version": "1.1.13",
-  "description": "A type-safe asynchronous bi-directional RPC facility for connecting services over Node.js duplex streams.",
+  "description": " A type-safe asynchronous bi-directional RPC facility for connecting services over Node.js `stream.Duplex` streams.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
